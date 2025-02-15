@@ -1,6 +1,8 @@
 [build]
+  base = "weather-app"
   command = "npm run build"
-  publish = "dist"
+  publish = "weather-app/dist"
+
 
 [build.environment]
   NODE_VERSION = "20.17.0"
