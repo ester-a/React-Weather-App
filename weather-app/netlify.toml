@@ -1,7 +1,7 @@
 [build]
   base = "weather-app"
   command = "npm run build"
-  publish = "weather-app/dist"
+  publish = "dist"
 
 
 [build.environment]
