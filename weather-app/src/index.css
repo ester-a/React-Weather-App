@@ -83,6 +83,68 @@ h1 {
 ::placeholder {
   color: #f8f8f8;
 }
+
+.loading-animation {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 400px;
+  flex-grow: 1;
+  background: none;
+}
+
+.loading-cyrcles {
+  width: 110px;
+  height: 10px;
+  position: relative;
+}
+
+.cyrcle {
+  display: block;
+  width: 10px;
+  height: 100%;
+  border-radius: 50%;
+  background-color: white;
+  position: absolute;
+  top: 0;
+  animation: load 1s infinite alternate;
+}
+.cyrcle:nth-child(1) {
+  left: 0;
+  animation-delay: 0.3s;
+}
+
+.cyrcle:nth-child(2) {
+  left: 25px;
+  animation-delay: 0.6s;
+}
+
+.cyrcle:nth-child(3) {
+  left: 50px;
+  animation-delay: 0.9s;
+}
+
+.cyrcle:nth-child(4) {
+  left: 75px;
+  animation-delay: 1.2s;
+}
+
+.cyrcle:nth-child(5) {
+  left: 100px;
+  animation-delay: 1.5s;
+}
+
+@keyframes load {
+  0% {
+    transform: scale(1);
+    opacity: 1;
+  }
+  100% {
+    transform: scale(2);
+    opacity: 0.4;
+  }
+}
+
 .container {
   max-width: 700px;
   height: 700px;

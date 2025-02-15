@@ -6,6 +6,7 @@ function App() {
   const [data, setData] = useState({});
   const [location, setLocation] = useState("");
   const [language, setLanguage] = useState("en");
+  const [isLoading, setIsLoading] = useState(true);
 
   const apiKey = import.meta.env.VITE_API_KEY;
 
@@ -16,22 +17,22 @@ function App() {
     "broken clouds": "oblačno",
     "overcast clouds": "zataženo",
     "shower rain": "přeháňky",
-    "rain": "déšť",
-    "thunderstorm": "bouřka",
-    "snow": "sníh",
-    "mist": "mlha",
+    rain: "déšť",
+    thunderstorm: "bouřka",
+    snow: "sníh",
+    mist: "mlha",
     "light rain": "slabí déšť",
     "moderate rain": "mírný déšť",
     "heavy intensity rain": "silný déšť",
     "very heavy rain": "velmi silný déšť",
-    "fog": "hustá mlha",
+    fog: "hustá mlha",
     "light rain and snow": "slabý déšť se sněhem",
     "rain and snow": "déšť se sněhem",
     "light shower snow": "slabé sněhové přeháňky",
     "shower snow": "sněhové přeháňky",
     "heavy shower snow": "silné sněhové přeháňky",
     "light intensity drizzle": "slabé mrholení",
-    "drizzle": "mrholení",
+    drizzle: "mrholení",
     "heavy intensity drizzle": "silné mrholení",
     "drizzle rain": "mrholící déšť",
     "heavy intensity drizzle rain": "silný mrholící déšť",
@@ -61,10 +62,18 @@ function App() {
   }
 
   const fetchCityCoordinates = (lat, lon) => {
+    setIsLoading(true); // Začínáme načítání
     const url = `https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&appid=${apiKey}&units=metric&lang=${language}`;
-    axios.get(url).then((response) => {
-      setData(response.data);
-    });
+    axios
+      .get(url)
+      .then((response) => {
+        setData(response.data);
+        setIsLoading(false); // Když je načítání hotové, skrytí animace
+      })
+      .catch((error) => {
+        console.error("Error fetching data:", error);
+        setIsLoading(false); // Když dojde k chybě, animace se skryje
+      });
   };
 
   useEffect(() => {
@@ -77,15 +86,22 @@ function App() {
         console.error("Geolocation error:", error);
       }
     );
-  }, [language]); 
+  }, [language]);
 
   const searchLocation = (event) => {
     const url = `https://api.openweathermap.org/data/2.5/weather?q=${location}&appid=${apiKey}&units=metric&lang=${language}`;
     if (event.key === "Enter") {
-      axios.get(url).then((response) => {
-        setData(response.data);
-        console.log(response.data);
-      });
+      setIsLoading(true); // Začínáme načítání
+      axios
+        .get(url)
+        .then((response) => {
+          setData(response.data);
+          setIsLoading(false); // Když je načítání hotové, skrytí animace
+        })
+        .catch((error) => {
+          console.error("Error fetching data:", error);
+          setIsLoading(false); // Když dojde k chybě, animace se skryje
+        });
       setLocation("");
     }
   };
@@ -116,6 +132,17 @@ function App() {
             type="text"
           />
         </div>
+        {isLoading && (
+            <div className="loading-animation">
+              <div className="loading-cyrcles">
+                <span className="cyrcle"></span>
+                <span className="cyrcle"></span>
+                <span className="cyrcle"></span>
+                <span className="cyrcle"></span>
+                <span className="cyrcle"></span>
+              </div>
+            </div>
+        )}
         <div className="container">
           <div className="top">
             <div className="location">
