@@ -62,17 +62,17 @@ function App() {
   }
 
   const fetchCityCoordinates = (lat, lon) => {
-    setIsLoading(true); 
+    setIsLoading(true);  // Začínáme načítání
     const url = `https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&appid=${apiKey}&units=metric&lang=${language}`;
     axios
       .get(url)
       .then((response) => {
         setData(response.data);
-        setIsLoading(false); 
+        setIsLoading(false);  // Když je načítání hotové, skrytí animace
       })
       .catch((error) => {
         console.error("Error fetching data:", error);
-        setIsLoading(false); 
+        setIsLoading(false); // Když dojde k chybě, animace se skryje
       });
   };
 
@@ -91,16 +91,16 @@ function App() {
   const searchLocation = (event) => {
     const url = `https://api.openweathermap.org/data/2.5/weather?q=${location}&appid=${apiKey}&units=metric&lang=${language}`;
     if (event.key === "Enter") {
-      setIsLoading(true); 
+      setIsLoading(true); // Začínáme načítání
       axios
         .get(url)
         .then((response) => {
           setData(response.data);
-          setIsLoading(false); 
+          setIsLoading(false); // Když je načítání hotové, skrytí animace
         })
         .catch((error) => {
           console.error("Error fetching data:", error);
-          setIsLoading(false); 
+          setIsLoading(false); // Když dojde k chybě, animace se skryje
         });
       setLocation("");
     }
@@ -147,11 +147,13 @@ function App() {
           <div className="top">
             <div className="location">
               <p>{translateCity}</p>
+              {/* <p>{data.name}</p> */}
             </div>
             <div className="temperature">
               {data.main ? <h1>{data.main.temp}&deg;C</h1> : null}
             </div>
             <div className="description">
+              {/* {data.weather ? <p>{data.weather[0].main}</p> : null} */}
               {data.weather ? <p>{translatedDescription}</p> : null}
               {data.weather ? (
                 <img
@@ -191,3 +193,7 @@ function App() {
 }
 
 export default App;
+
+
+
+
