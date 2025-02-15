@@ -163,13 +163,6 @@ h1 {
   text-align: center;
 }
 
-/* .app .description {
-  position: relative;
-  right: -90%;
-  transform-origin: 0 0;
-  transform: rotate(270deg);
-} */
-
 .app .bottom {
   display: flex;
   justify-content: space-around;

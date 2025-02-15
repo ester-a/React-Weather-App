@@ -62,17 +62,17 @@ function App() {
   }
 
   const fetchCityCoordinates = (lat, lon) => {
-    setIsLoading(true); // Začínáme načítání
+    setIsLoading(true); 
     const url = `https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&appid=${apiKey}&units=metric&lang=${language}`;
     axios
       .get(url)
       .then((response) => {
         setData(response.data);
-        setIsLoading(false); // Když je načítání hotové, skrytí animace
+        setIsLoading(false); 
       })
       .catch((error) => {
         console.error("Error fetching data:", error);
-        setIsLoading(false); // Když dojde k chybě, animace se skryje
+        setIsLoading(false); 
       });
   };
 
@@ -91,16 +91,16 @@ function App() {
   const searchLocation = (event) => {
     const url = `https://api.openweathermap.org/data/2.5/weather?q=${location}&appid=${apiKey}&units=metric&lang=${language}`;
     if (event.key === "Enter") {
-      setIsLoading(true); // Začínáme načítání
+      setIsLoading(true); 
       axios
         .get(url)
         .then((response) => {
           setData(response.data);
-          setIsLoading(false); // Když je načítání hotové, skrytí animace
+          setIsLoading(false); 
         })
         .catch((error) => {
           console.error("Error fetching data:", error);
-          setIsLoading(false); // Když dojde k chybě, animace se skryje
+          setIsLoading(false); 
         });
       setLocation("");
     }
